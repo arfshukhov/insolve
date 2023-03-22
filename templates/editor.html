@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<style>
+    .left-bar {
+    position: fixed;
+    width: 20%;
+    height: 100%;
+    padding: 1%;
+    background-color: #90d6b1;
+    color: #fff;
+    border: 1px solid #000;
+}
+
+    .mid-bar{
+    position: fixed;
+    left:25%;
+    top:5%
+
+}
+    .right-bar{
+    position: fixed;
+    right:0%;
+    width:20%;
+    height:100%;
+    background-color: #90d6b1;
+    border: 1px solid #000;}
+</style>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+
+<div class="left-bar"></div>
+<div class="mid-bar">
+    <div style="background-color:#69db67;
+    border: 1px solid;
+    border-radius: 10px;
+    min-width:500px;
+    min-height:60px">
+    {{action|safe}}
+    </div>
+</div>
+<div class="right-bar"></div>
+</body>
+</html>

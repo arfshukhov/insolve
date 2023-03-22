@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<style>
+    .left-bar {
+    position: fixed;
+    width: 20%;
+    height: 100%;
+    padding: 1%;
+    background-color: #90d6b1;
+    color: #fff;
+    border: 1px solid #000;
+}
+
+    .mid-bar{
+    position: fixed;
+    left:25%;
+    top:5%
+
+}
+    .right-bar{
+    position: fixed;
+    right:0%;
+    width:20%;
+    height:100%;
+    background-color: #90d6b1;
+    border: 1px solid #000;}
+
+    .task_widget{
+    background-color:#69db67;
+    border: 1px solid;
+    border-radius: 10px;
+    }
+</style>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+
+<div class="left-bar"></div>
+<div class="mid-bar">
+<div>
+{{action|safe}}
+    <br>
+{%for element in tasks%}
+    <div class="task_widget">
+        <form action="/editor/remove/{{tasks.index(element)}}">
+        <h1>    Задача {{tasks.index(element)+1}}</h1>
+        <p style="max-width:800px">{{element["text"]}}</p>
+        <p1 style="max-width:800px">    {{element["answer"]}}</p1>
+        <br>
+        <br>
+        <input type="submit" value="удалить задачу">
+        </form>
+        <br>
+    </div>
+    <br>
+{%endfor%}
+</div>
+<br>
+<br>
+<div class="task_widget" style="min-width:600px; min-height:380px">
+    <br>
+<form action="/editor/edit/new_task/" method="post">
+
+    <div>
+        <div>
+            <h>Введите текст задачи</h>
+
+        </div>
+        <div>
+            <textarea  name="text_of"
+                   style="width: 90%; height: 200px; vertical-align: text-top" >
+            </textarea>
+        </div>
+        <br>
+    <div>
+        <h></h>
+        <h>Введите правильный ответ</h>
+    <input type="text" name="answer_of">
+        </div>
+        <br>
+    <div>
+    <h>Требуется ли решение?</h>
+        <input type="radio" name="need_solution" value="true">"Да"
+        <input type="radio" name="need_solution" value="false">"Нет"
+    </div>
+        <br>
+    <div>
+    <input type="submit" value="Добавить новую задачу" style="background-color: #148513; width:30%;
+     height: 4%; border-radius:3px;">
+    </div>
+    </div>
+</form>
+</div>
+</div>
+<div class="right-bar"></div>
+</body>
+</html>
