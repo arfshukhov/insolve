@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<style>
+    .left-bar {
+    position: fixed;
+    width: 20%;
+    height: 100%;
+    padding: 1%;
+    background-color: #90d6b1;
+    color: #fff;
+    border: 1px solid #000;
+}
+
+    .mid-bar{
+    position: fixed;
+    left:25%;
+    top:5%
+
+}
+    .right-bar{
+    position: fixed;
+    right:0.5%;
+    width:20%;
+    height:100%;
+    background-color: #90d6b1;
+    border: 1px solid #000;}
+
+body {
+  display: grid;
+  place-content: center;
+
+  min-height: 100vh;
+  margin: 0;
+  padding: 40px;
+  box-sizing: border-box;
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Open Sans', sans-serif;}
+
+   .text{
+   style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Open Sans', sans-serif;
+   }
+
+
+</style>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap" rel="stylesheet">
+</head>
+<body style="font-family:sans-serif; font-family: 'Roboto', sans-serif; font-size:150%">
+<div class="right-bar"></div>
+<div class="mid-bar">
+       <h3 style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Open Sans', sans-serif;">Ваша должность</h3>
+    <form id="reg_form" action="/insolve/regiester/done/" method="post">
+    <div>
+        <div>
+            <input form="reg_form" class="text" type="radio" name="role" value="teacher">Учитель
+            <input form="reg_form" class="text" type="radio" name="role" value="student">Ученик
+        </div>
+    </div>
+    <br>
+    <div>
+        Имя <input class="text" type="text" name="fname" form="reg_form">
+        Фамилия <input type="text" name="lname" form="reg_form">
+    </div>
+    <br>
+    <div>
+        <input type="submit" value="Завершить!">
+    </div>
+    </form>
+</div>
+<div class="left-bar"></div>
+</body>
+</html>

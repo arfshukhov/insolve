@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <style>
-    .left-bar {
+        .left-bar {
     position: fixed;
     width: 20%;
     height: 100%;
@@ -12,9 +12,11 @@
 
     .mid-bar{
     position: fixed;
+    height: 90%;
+    width : 50%;
     left:25%;
-    top:5%
-
+    top:5%;
+    overflow-y: auto;
 }
     .right-bar{
     position: fixed;
@@ -23,9 +25,15 @@
     height:100%;
     background-color: #90d6b1;
     border: 1px solid #000;}
+
+    .task_widget{
+    background-color:#69db67;
+    border: 1px solid;
+    border-radius: 10px;
+    font-family: 'Lato', sans-serif;
+    }
 </style>
 <html lang="ru">
-
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -33,22 +41,21 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap" rel="stylesheet">
 </head>
-
-<body style="font-family: 'Roboto', sans-serif; font-size:150%">
-
+<body style="font-family: 'Roboto', sans-serif; font-family: 'Roboto', sans-serif; font-size:150%">
 <div class="left-bar"></div>
 <div class="mid-bar">
     <div style="position: fixed; right: 30%;">
         <a href="/insolve/regiester/">{{user}}</a>
     </div>
     <br>
-    <div style="background-color:#69db67;
-    border: 1px solid;
-    border-radius: 10px;
-    min-width:500px;
-    min-height:60px">
-    {{action|safe}}
-    </div>
+    <div><label for="file_form">выберите .JSON файл с задачами:</label></div>
+    <br>
+    <form id="main" action="{{url_for('solver_task')}}" enctype="multipart/form-data" method="post">
+        <div><input form="main" id="file_form" type="file" name="file"></div>
+        <br>
+        <br>
+        <div><input type="submit" value="Перейти к решению"></div>
+    </form>
 </div>
 <div class="right-bar"></div>
 </body>

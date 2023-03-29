@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <style>
+@import url('https://fonts.googleapis.com/css?family=Lato:400,500,600,700&display=swap');
     .left-bar {
     position: fixed;
     width: 20%;
@@ -12,9 +13,11 @@
 
     .mid-bar{
     position: fixed;
+    height: 90%;
+    width : 50%;
     left:25%;
-    top:5%
-
+    top:5%;
+    overflow-y: auto;
 }
     .right-bar{
     position: fixed;
@@ -28,6 +31,7 @@
     background-color:#69db67;
     border: 1px solid;
     border-radius: 10px;
+    font-family: 'Lato', sans-serif;
     }
 </style>
 <html lang="ru">
@@ -35,12 +39,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body style="overflow-y: auto font-family: 'Roboto', sans-serif; font-size:150%">
 
 <div class="left-bar"></div>
 <div class="mid-bar">
+    <div style="position: fixed; right: 30%;">
+        <a href="/insolve/regiester/">{{user}}</a>
+    </div>
+    <br>
 <div>
 {{action|safe}}
     <br>
@@ -52,7 +63,8 @@
         <p1 style="max-width:800px">    {{element["answer"]}}</p1>
         <br>
         <br>
-        <input type="submit" value="удалить задачу">
+        <input type="submit" value="удалить задачу" style="background-color: #148513; width:30%;
+     height: 4%; border-radius:3px;">
         </form>
         <br>
     </div>
@@ -65,7 +77,7 @@
     <br>
 <form action="/editor/edit/new_task/" method="post">
 
-    <div>
+    <div style="font-family: 'Lato', sans-serif;">
         <div>
             <h>Введите текст задачи</h>
 
@@ -95,6 +107,10 @@
     </div>
 </form>
 </div>
+    <form action="/editor/edit/finish/">
+        <input type="submit" value="Submit" style="background-color: #148513; width:30%;
+     height: 4%; border-radius:3px;">
+    </form>
 </div>
 <div class="right-bar"></div>
 </body>

@@ -1,0 +1,33 @@
+        .left-bar {
+    position: fixed;
+    width: 20%;
+    height: 100%;
+    padding: 1%;
+    background-color: #90d6b1;
+    color: #fff;
+    border: 1px solid #000;
+}
+
+    .mid-bar{
+    position: fixed;
+    height: 90%;
+    width : 50%;
+    left:25%;
+    top:5%;
+    overflow-y: auto;
+}
+    .right-bar{
+    position: fixed;
+    right:0%;
+    width:20%;
+    height:100%;
+    background-color: #90d6b1;
+    border: 1px solid #000;}
+
+    .task_widget{
+    background-color:#69db67;
+    border: 1px solid;
+    border-radius: 10px;
+    min-height:10%;
+    font-family: 'Lato', sans-serif;
+    }

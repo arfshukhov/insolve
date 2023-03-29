@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<style>
+
+    .left-bar {
+    position: fixed;
+    width: 20%;
+    height: 100%;
+    padding: 1%;
+    background-color: #90d6b1;
+    color: #fff;
+    border: 1px solid #000;
+}
+
+    .mid-bar{
+    position: fixed;
+    height: 90%;
+    width : 50%;
+    left:25%;
+    top:5%;
+    overflow-y: auto;
+}
+    .right-bar{
+    position: fixed;
+    right:0%;
+    width:20%;
+    height:100%;
+    background-color: #90d6b1;
+    border: 1px solid #000;}
+
+    .task_widget{
+    background-color:#69db67;
+    border: 1px solid;
+    border-radius: 10px;
+    width: 30%;
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap" rel="stylesheet">
+</head>
+<body style="font-family: 'Roboto', sans-serif; font-family: 'Roboto', sans-serif; font-size:150%">
+<div class="left-bar"></div>
+<div class="mid-bar">
+    <div style="position: fixed; right: 30%;">
+        <a href="/insolve/regiester/">{{user}}</a>
+    </div>
+    <br>
+    <div class="task_widget" style="font-family: 'Roboto', sans-serif;">
+        <br>
+        <p1>По предврительной автопроверке</p1>
+        <p2>верно решено {{percent}}</p2>
+        <br>
+        <br>
+    </div>
+    <br>
+    <div class="task_widget" style="font-family: 'Roboto', sans-serif;">
+       <form action="/solver/task/download/" method="post">
+           <br>
+           <label>Скачайте и отправьте решение учителю,
+               если есть такое требование</label>
+           <br>
+           <input type="submit" value="Скачать решение">
+           <br>
+           <br>
+       </form>
+    </div>
+</div>
+<div class="right-bar"></div>
+</body>
+</html>
