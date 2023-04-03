@@ -15,7 +15,6 @@ class Cryptographer:
 
     @staticmethod
     def decrypt(word, fernet=fernet):
-        print(word)
         return fernet.decrypt(word).decode()
 
 

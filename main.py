@@ -1,6 +1,7 @@
 import json
 import os
 import random
+import shutil
 from fileinput import filename
 from werkzeug.utils import secure_filename
 from flask import *
@@ -12,10 +13,12 @@ app = Flask(__name__, template_folder="templates")
 """
 template of user data {"fname": "", "lname": "", "role": ""}
 """
-
+# Global variables for interactive between functions
+# Be good if rewrite this in OOP-style
 editor = None
 user = None
 solution = None
+cheching_task = None
 
 UPLOAD_FOLDER = os.path.join('tasks')
 ALLOWED_EXTENSIONS = ["json"]
@@ -24,10 +27,14 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/insolve/', methods=['GET', 'POST'])
 def front_page():
+    shutil.rmtree("files")
+    shutil.rmtree("tasks")
+    os.mkdir("files")
+    os.mkdir("tasks")
     jsn = None
     with open("data/data.json", "r", encoding="utf-8") as f:
         data = f.read()
-        print(f"data {data}")
+        # print(f"data {data}")
         jsn = json.loads(data)
     if jsn["role"] == "" or jsn["fname"] == "" or jsn["lname"] == "":
         return redirect("/insolve/regiester/")
@@ -36,7 +43,7 @@ def front_page():
         user = str(User(jsn["role"], jsn["fname"], jsn["lname"]))
         role = json.loads(data)["role"]
         if role == "student":
-            ...
+            return redirect("/solver/")
         elif role == "teacher":
             return redirect("/editor/")
         else:
@@ -60,8 +67,6 @@ def regiester_done():
             json.dump(User(role, fname, lname).__dict__, f, ensure_ascii=False)
             f.close()
         return redirect("/insolve/")
-
-
 
 
 @app.route('/editor/', methods=['GET', 'POST'])
@@ -126,12 +131,35 @@ def finish():
 def download():
     return send_file(f"files/{editor.tokens['title']}.json", as_attachment=True)
 
+
+@app.route("/checking/", methods=['GET', 'POST'])
+def checking():
+    global user
+    return render_template("checking_start.html", user=user)
+
+
+
+@app.route("/checking/view_solution/", methods=['GET', 'POST'])
+def checking_start():
+    global user, cheching_task
+    code = ""
+    data = None
+    user = None
+    if request.method == 'POST':
+        file = request.files.get("file")
+        if file:
+            flname = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], flname))
+            with open(f"tasks/{flname}", "r") as solution:
+                solution_value = json.loads(solution.read())
+
+
 @app.route('/overload/')
 def overload():
     global editor
     editor.remove_json()
     editor = None
-    return redirect("/editor/")
+    return redirect("/insolve/")
 
 
 @app.route("/solver/", methods=['GET', 'POST'])
@@ -200,7 +228,7 @@ def solver_done():
 def solution_download():
     global solution
     jsn = json.dumps(solution.tokens)
-    name = f"{random.randint(1, 10*10)}.json"
+    name = f"{random.randint(1, 10**10)}.json"
     with open(f"files/{name}", "w", encoding="utf-8") as f:
         f.write(jsn)
         solution = None
