@@ -135,23 +135,50 @@ def download():
 @app.route("/checking/", methods=['GET', 'POST'])
 def checking():
     global user
-    return render_template("checking_start.html", user=user)
-
+    code = '''<div class="task_widget" style="font-family: 'Roboto', sans-serif;">
+        <br>
+        <form action="/checking/view_solution/" enctype="multipart/form-data" method="post">
+            <p1>Выберите файл с решением,</p1>
+            <p2>чтоб приступить к проверке</p2>
+            <br>
+            <input type="file" name="file">
+            <br>
+            <br>
+            <input type="submit" value="Начать проверку">
+            <br>
+        </form>
+        <br>
+    </div>'''
+    return render_template("checking.html", user=user, code=code)
 
 
 @app.route("/checking/view_solution/", methods=['GET', 'POST'])
-def checking_start():
+def checking_view():
     global user, cheching_task
     code = ""
-    data = None
-    user = None
+    #data = None
     if request.method == 'POST':
         file = request.files.get("file")
         if file:
             flname = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], flname))
-            with open(f"tasks/{flname}", "r") as solution:
-                solution_value = json.loads(solution.read())
+            solution = open(f"tasks/{flname}", "r")
+            solution_value = json.loads(Cryptographer.decrypt(solution.read()))
+            code = ""
+            code += f"""<br><div><label>{solution_value["title"]}</label></div>"""
+            code += f"""<br><div><label>{solution_value["name"]}</label></div>"""
+            code += f"""<br><div><label>Процент правильных решений: {solution_value["right_percent"]}</label></div>"""
+            for solution_ in solution_value['solutions']:
+                code += """<br><div class="task_widget"><br>"""
+                code += f"""<label style="border-radius: 5px">Текст задания: {solution_["text"]}
+                </label><br>"""
+                if solution_["solution"] != "none":
+                    code += f"""<label style="border-radius: 5px">Решение учечащегося: {solution_["solution"]}
+                    </label><br>"""
+                code += f"""<label style="border-radius: 5px">Ответ учащегося: {solution_["answer"]}
+                </label><br><br></div>"""
+            solution.close()
+    return render_template("checking.html", user=user, code=code)
 
 
 @app.route('/overload/')
@@ -172,8 +199,6 @@ def solver():
 def solver_task():
     global user, solution
     code = ""
-    data = None
-    user = None
     if request.method == 'POST':
         file = request.files.get("file")
         if file:
@@ -229,12 +254,13 @@ def solution_download():
     global solution
     jsn = json.dumps(solution.tokens)
     name = f"{random.randint(1, 10**10)}.json"
-    with open(f"files/{name}", "w", encoding="utf-8") as f:
-        f.write(jsn)
+    with open(f"files/{name}", "wb") as f:
+        f.write(Cryptographer.encrypt(jsn))
         solution = None
     return send_file(f"files/{name}", as_attachment=True)
 
 
 if __name__ == "__main__":
     webbrowser.open("http://127.0.0.1:5000/insolve/")
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0')
+
