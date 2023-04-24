@@ -45,10 +45,12 @@
 <body style="font-family: 'Roboto', sans-serif; font-size:150%">
 <div class="left-bar"></div>
 <div class="mid-bar">
-    <div style="position: fixed; right: 30%; font-family: 'Roboto', sans-serif; font-size:150%"">
+    <div style="position: fixed; right: 30%; font-family: 'Roboto', sans-serif; font-size:150%">
         <a href="/insolve/regiester/">{{user}}</a>
+        <br>
+        <a href="/stats/">Статистика</a>
     </div>
-    <br>
+    <br><br><br><br><br>
     <form action="/solver/task/done/" method="post">
         <div>{{title}}</div>
     {{content|safe}}
